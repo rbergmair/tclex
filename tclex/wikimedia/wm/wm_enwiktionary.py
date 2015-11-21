@@ -10,9 +10,9 @@ from bz2 import BZ2File;
 from xml.sax.saxutils import escape;
 
 
-from txcrunch.wikimedia.wm.mw import MediawikiMetadataTreewalker;
-from txcrunch.wikimedia.wm.mw import MediawikiPagesXMLParser;
-from txcrunch.wikimedia.wm.mw import MediawikiWikitextParser;
+from tclex.wikimedia.wm.mw import MediawikiMetadataTreewalker;
+from tclex.wikimedia.wm.mw import MediawikiPagesXMLParser;
+from tclex.wikimedia.wm.mw import MediawikiWikitextParser;
 
 
 

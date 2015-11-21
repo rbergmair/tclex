@@ -2,7 +2,7 @@ __all__ \
   = [ "de_noun_bymeta" ];
 
 
-from txcrunch.wikimedia.wm.mw_cleanup import mw_cleanup;
+from tclex.wikimedia.wm.mw_cleanup import mw_cleanup;
 
 
 

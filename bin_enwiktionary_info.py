@@ -2,7 +2,7 @@ from os.path import isfile;
 from os import remove;
 from pprint import pprint;
 
-from txcrunch.wikimedia.wm.mw import MediawikiMetadataTreewalker;
+from tclex.wikimedia.wm.mw import MediawikiMetadataTreewalker;
 
 
 def print_categories( root ):

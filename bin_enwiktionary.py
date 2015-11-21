@@ -1,35 +1,36 @@
 from os.path import isfile;
 from os import remove;
+from os import makedirs;
 
-from txcrunch.wikimedia.wm.wm_enwiktionary import enwiktionary_de_word_bymeta;
-from txcrunch.wikimedia.wm.wm_enwiktionary import enwiktionary_en_word_bymeta;
-from txcrunch.wikimedia.wm.wm_enwiktionary import enwiktionary_en_word_bycontent;
+from tclex.wikimedia.wm.wm_enwiktionary import enwiktionary_de_word_bymeta;
+from tclex.wikimedia.wm.wm_enwiktionary import enwiktionary_en_word_bymeta;
+from tclex.wikimedia.wm.wm_enwiktionary import enwiktionary_en_word_bycontent;
 
-from txcrunch.wikimedia.wm_lexicon.lex_en_noun import en_noun_bymeta;
-from txcrunch.wikimedia.wm_lexicon.lex_en_noun import en_noun_bycontent;
+from tclex.wikimedia.wm_lexicon.lex_en_noun import en_noun_bymeta;
+from tclex.wikimedia.wm_lexicon.lex_en_noun import en_noun_bycontent;
 
-from txcrunch.wikimedia.wm_lexicon.lex_en_verb import en_verb_bymeta;
-from txcrunch.wikimedia.wm_lexicon.lex_en_verb import en_verb_regular_bycontent;
-from txcrunch.wikimedia.wm_lexicon.lex_en_verb import en_verb_irregular_bycontent;
+from tclex.wikimedia.wm_lexicon.lex_en_verb import en_verb_bymeta;
+from tclex.wikimedia.wm_lexicon.lex_en_verb import en_verb_regular_bycontent;
+from tclex.wikimedia.wm_lexicon.lex_en_verb import en_verb_irregular_bycontent;
 
-from txcrunch.wikimedia.wm_lexicon.lex_en_adj import en_adj_bymeta;
-from txcrunch.wikimedia.wm_lexicon.lex_en_adj import en_adj_irregular_bycontent;
-from txcrunch.wikimedia.wm_lexicon.lex_en_adj import en_adj_regular_bycontent;
+from tclex.wikimedia.wm_lexicon.lex_en_adj import en_adj_bymeta;
+from tclex.wikimedia.wm_lexicon.lex_en_adj import en_adj_irregular_bycontent;
+from tclex.wikimedia.wm_lexicon.lex_en_adj import en_adj_regular_bycontent;
 
-from txcrunch.wikimedia.wm_lexicon.lex_en_adv import en_adv_bymeta;
-from txcrunch.wikimedia.wm_lexicon.lex_en_adv import en_adv_irregular_bycontent;
-from txcrunch.wikimedia.wm_lexicon.lex_en_adv import en_adv_regular_bycontent;
-
-
-
-def main():
+from tclex.wikimedia.wm_lexicon.lex_en_adv import en_adv_bymeta;
+from tclex.wikimedia.wm_lexicon.lex_en_adv import en_adv_irregular_bycontent;
+from tclex.wikimedia.wm_lexicon.lex_en_adv import en_adv_regular_bycontent;
 
 
-  WIKI_DIR = "/dta/wikimedia";
-  OUTPUT_DIR = "/dta/txcrunch";
+
+def main( wiki_dir, output_dir ):
 
 
-  if not isfile( OUTPUT_DIR+"/enwiktionary_en_word_bymeta.csv" ):
+  makedirs( output_dir+"/wm", exist_ok=True );
+  makedirs( output_dir+"/wm_lexicon", exist_ok=True );
+
+
+  if not isfile( output_dir+"/wm/enwiktionary_en_word_bymeta.csv" ):
     
     try:
 
@@ -42,16 +43,16 @@ def main():
       return;
 
     try:
-      enwiktionary_en_word_bymeta( OUTPUT_DIR+"/enwiktionary_en_word_bymeta.csv" );
+      enwiktionary_en_word_bymeta( output_dir+"/wm/enwiktionary_en_word_bymeta.csv" );
     except:
       try:
-        remove( OUTPUT_DIR+"/enwiktionary_en_word_bymeta.csv" );
+        remove( output_dir+"/wm/enwiktionary_en_word_bymeta.csv" );
       except:
         pass;
       raise;
 
 
-  if not isfile( OUTPUT_DIR+"/enwiktionary_de_word_bymeta.csv" ):
+  if not isfile( output_dir+"/wm/enwiktionary_de_word_bymeta.csv" ):
     
     try:
 
@@ -64,130 +65,130 @@ def main():
       return;
 
     try:
-      enwiktionary_de_word_bymeta( OUTPUT_DIR+"/enwiktionary_de_word_bymeta.csv" );
+      enwiktionary_de_word_bymeta( output_dir+"/wm/enwiktionary_de_word_bymeta.csv" );
     except:
       try:
-        remove( OUTPUT_DIR+"/enwiktionary_de_word_bymeta.csv" );
+        remove( output_dir+"/wm/enwiktionary_de_word_bymeta.csv" );
       except:
         pass;
       raise;
 
 
-  if not isfile( OUTPUT_DIR+"/enwiktionary_en_noun.csv" ):
+  if not isfile( output_dir+"/wm/enwiktionary_en_noun.csv" ):
 
     try:
 
       enwiktionary_en_word_bycontent(
-          WIKI_DIR+"/enwiktionary-20151102-pages-meta-current.xml.bz2",
-          OUTPUT_DIR
+          wiki_dir+"/enwiktionary-20151102-pages-meta-current.xml.bz2",
+          output_dir+"/wm"
         );
 
     except:
       try:
-        remove( OUTPUT_DIR+"/enwiktionary_en_noun.csv" );
+        remove( output_dir+"/wm/enwiktionary_en_noun.csv" );
       except:
         pass;
       raise;
 
 
-  if not isfile( OUTPUT_DIR+"/en_noun.csv" ):
+  if not isfile( output_dir+"/wm_lexicon/en_noun.csv" ):
 
     try:
 
       en_noun_bymeta(
-          OUTPUT_DIR+"/enwiktionary_en_word_bymeta.csv",
-          OUTPUT_DIR+"/en_noun.csv"
+          output_dir+"/wm/enwiktionary_en_word_bymeta.csv",
+          output_dir+"/wm_lexicon/en_noun.csv"
         );
 
       en_noun_bycontent(
-          OUTPUT_DIR+"/enwiktionary_en_noun.csv",
-          OUTPUT_DIR+"/en_noun.csv"
+          output_dir+"/wm/enwiktionary_en_noun.csv",
+          output_dir+"/wm_lexicon/en_noun.csv"
         );
 
     except:
       try:
-        remove( OUTPUT_DIR+"/en_noun.csv" );
+        remove( output_dir+"/wm_lexicon/en_noun.csv" );
       except:
         pass;
       raise;
 
 
-  if not isfile( OUTPUT_DIR+"/en_verb.csv" ):
+  if not isfile( output_dir+"/wm_lexicon/en_verb.csv" ):
 
     try:
 
       en_verb_bymeta(
-          OUTPUT_DIR+"/enwiktionary_en_word_bymeta.csv",
-          OUTPUT_DIR+"/en_verb.csv"
+          output_dir+"/wm/enwiktionary_en_word_bymeta.csv",
+          output_dir+"/wm_lexicon/en_verb.csv"
         );
 
       en_verb_regular_bycontent(
-          OUTPUT_DIR+"/enwiktionary_en_verb_regular.csv",
-          OUTPUT_DIR+"/en_verb.csv"
+          output_dir+"/wm/enwiktionary_en_verb_regular.csv",
+          output_dir+"/wm_lexicon/en_verb.csv"
         );
 
       en_verb_irregular_bycontent(
-          OUTPUT_DIR+"/enwiktionary_en_verb_irregular.csv",
-          OUTPUT_DIR+"/en_verb.csv"
+          output_dir+"/wm/enwiktionary_en_verb_irregular.csv",
+          output_dir+"/wm_lexicon/en_verb.csv"
         );
 
     except:
       try:
-        remove( OUTPUT_DIR+"/en_verb.csv" );
+        remove( output_dir+"/wm_lexicon/en_verb.csv" );
       except:
         pass;
       raise;
 
 
-  if not isfile( OUTPUT_DIR+"/en_adj.csv" ):
+  if not isfile( output_dir+"/wm_lexicon/en_adj.csv" ):
 
     try:
 
       en_adj_bymeta(
-          OUTPUT_DIR+"/enwiktionary_en_word_bymeta.csv",
-          OUTPUT_DIR+"/en_adj.csv"
+          output_dir+"/wm/enwiktionary_en_word_bymeta.csv",
+          output_dir+"/wm_lexicon/en_adj.csv"
         );
 
       en_adj_irregular_bycontent(
-          OUTPUT_DIR+"/enwiktionary_en_adj_irregular.csv",
-          OUTPUT_DIR+"/en_adj.csv"
+          output_dir+"/wm/enwiktionary_en_adj_irregular.csv",
+          output_dir+"/wm_lexicon/en_adj.csv"
         );
 
       en_adj_regular_bycontent(
-          OUTPUT_DIR+"/enwiktionary_en_adj_regular.csv",
-          OUTPUT_DIR+"/en_adj.csv"
+          output_dir+"/wm/enwiktionary_en_adj_regular.csv",
+          output_dir+"/wm_lexicon/en_adj.csv"
         );
 
     except:
       try:
-        remove( OUTPUT_DIR+"/en_adj.csv" );
+        remove( output_dir+"/wm_lexicon/en_adj.csv" );
       except:
         pass;
       raise;
 
 
-  if not isfile( OUTPUT_DIR+"/en_adv.csv" ):
+  if not isfile( output_dir+"/wm_lexicon/en_adv.csv" ):
 
     try:
 
       en_adv_bymeta(
-          OUTPUT_DIR+"/enwiktionary_en_word_bymeta.csv",
-          OUTPUT_DIR+"/en_adv.csv"
+          output_dir+"/wm/enwiktionary_en_word_bymeta.csv",
+          output_dir+"/wm_lexicon/en_adv.csv"
         );
 
       en_adv_irregular_bycontent(
-          OUTPUT_DIR+"/enwiktionary_en_adv_irregular.csv",
-          OUTPUT_DIR+"/en_adv.csv"
+          output_dir+"/wm/enwiktionary_en_adv_irregular.csv",
+          output_dir+"/wm_lexicon/en_adv.csv"
         );
 
       en_adv_regular_bycontent(
-          OUTPUT_DIR+"/enwiktionary_en_adv_regular.csv",
-          OUTPUT_DIR+"/en_adv.csv"
+          output_dir+"/wm/enwiktionary_en_adv_regular.csv",
+          output_dir+"/wm_lexicon/en_adv.csv"
         );
 
     except:
       try:
-        remove( OUTPUT_DIR+"/en_adv.csv" );
+        remove( output_dir+"/wm_lexicon/en_adv.csv" );
       except:
         pass;
       raise;

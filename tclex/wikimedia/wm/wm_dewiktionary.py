@@ -8,9 +8,9 @@ from bz2 import BZ2File; #@UnresolvedImport
 from gzip import GzipFile;
 
 
-from txcrunch.wikimedia.wm.mw import MediawikiMetadataTreewalker;
-from txcrunch.wikimedia.wm.mw import MediawikiPagesXMLParser;
-from txcrunch.wikimedia.wm.mw import MediawikiWikitextParser;
+from tclex.wikimedia.wm.mw import MediawikiMetadataTreewalker;
+from tclex.wikimedia.wm.mw import MediawikiPagesXMLParser;
+from tclex.wikimedia.wm.mw import MediawikiWikitextParser;
 
 
 

@@ -3,7 +3,7 @@ __all__ \
       "en_noun_bycontent" ]
 
 
-from txcrunch.wikimedia.wm.mw_cleanup import mw_cleanup;
+from tclex.wikimedia.wm.mw_cleanup import mw_cleanup;
 
 
 
