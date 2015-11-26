@@ -18,12 +18,17 @@ def print_categories( root ):
       );
 
 
-def main():
+def getinfo_dewiktionary():
 
   print_categories( "Verb_(Deutsch)" );
   print_categories( "Substantiv_(Deutsch)" );
   print_categories( "Adjektiv_(Deutsch)" );
   print_categories( "Adverb_(Deutsch)" );
+
+
+def main():
+
+  getinfo_dewiktionary():
 
 
 if __name__ == "__main__":

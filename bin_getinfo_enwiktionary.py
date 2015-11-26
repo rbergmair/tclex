@@ -18,12 +18,17 @@ def print_categories( root ):
       );
 
 
-def main():
+def getinfo_enwiktionary():
 
   print_categories( "English_verbs" );
   print_categories( "English_nouns" );
   print_categories( "English_adjectives" );
   print_categories( "English_adverbs" );
+
+
+def main():
+
+  getinfo_enwiktionary(): 
 
 
 if __name__ == "__main__":

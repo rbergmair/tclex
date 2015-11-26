@@ -23,8 +23,7 @@ from tclex.wikimedia.wm_lexicon.lex_en_adv import en_adv_regular_bycontent;
 
 
 
-def main( wiki_dir, output_dir ):
-
+def import_enwiktionary( output_dir, from_, wiki_dir ):
 
   makedirs( output_dir+"/wm", exist_ok=True );
   makedirs( output_dir+"/wm_lexicon", exist_ok=True );
@@ -192,6 +191,13 @@ def main( wiki_dir, output_dir ):
       except:
         pass;
       raise;
+
+
+
+def main( output_dir, from_, wiki_dir ):
+
+  assert from_ == "from";
+  import_enwiktionary( output_dir, wiki_dir );
 
 
 
