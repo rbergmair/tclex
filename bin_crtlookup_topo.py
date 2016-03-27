@@ -109,7 +109,7 @@ def crtlookup_topo( output_dir ):
 
             lookup_topo_[ toponym ] \
               =   lookup_topo_.get( toponym, [] ) \
-                + [ ( row[ "population" ],
+                + [ ( row[ "population" ] or 0,
                       row[ "_id" ] ) ];
 
             rlookup_topo.append(
@@ -117,9 +117,30 @@ def crtlookup_topo( output_dir ):
                 umsgpack_packb( toponym )
               );
 
-    lookup_topo_ = {};
     for ( toponym, pop_id ) in lookup_topo_.items():
-      for ( pop, geoid ) in sorted( pop_id, reverse=True ):
+
+      pop_id.sort( reverse=True );
+
+      if not pop_id:
+        continue;
+
+      ( pop, geoid ) = pop_id[ 0 ];
+
+      if not pop:
+
+        lookup_topo.append(
+            toponym.encode( "utf-8" ),
+            umsgpack_packb( None )
+          );
+
+      seen = set();
+
+      for ( pop, geoid ) in pop_id:
+        
+        if geoid in seen:
+          continue;
+        seen.add( geoid );
+
         lookup_topo.append(
             toponym.encode( "utf-8" ),
             umsgpack_packb( geoid )
@@ -145,6 +166,8 @@ def crtlookup_topo( output_dir ):
 
     except:
       pass;
+
+    raise;
 
   finally:
 
